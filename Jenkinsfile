@@ -36,7 +36,7 @@ node{
 	
     stage('Docker Image Scan'){
         echo 'Scanning Docker image for vulnerbilities'
-        sh "docker build -t ${dockerHubUser}/insure-me:${tag} ."
+        sh "trivy image ${dockerHubUser}/insure-me:${tag}"
     }   
 	
     stage('Publishing Image to DockerHub'){
