@@ -26,24 +26,19 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+
 		 <dependency>
-	      <groupId>com.h2database</groupId>
-	      <artifactId>h2</artifactId>
-	      <scope>runtime</scope>
-	    </dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
-		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
 
-
-		
 	</dependencies>
 
 	<build>
@@ -51,6 +46,47 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.7</version>
+				<executions>
+				    <execution>
+					<id>jacoco-initialize</id>
+					<goals>
+					    <goal>prepare-agent</goal>
+					</goals>
+				    </execution>
+				    <execution>
+					<id>jacoco-report</id>
+					<phase>prepare-package</phase>
+					<goals>
+					    <goal>report</goal>
+					</goals>
+				    </execution>
+				    <execution>
+					<id>post-unit-test</id>
+					<phase>test</phase>
+					<goals>
+					    <goal>report</goal>
+					</goals>
+					<configuration>
+					    <dataFile>target/jacoco.exec</dataFile>
+					    <outputDirectory>target/jacoco-ut</outputDirectory>
+					</configuration>
+				    </execution>
+				</executions>
+				<configuration>
+				    <propertyName>surefireArgLine</propertyName>
+				</configuration>
+				</plugin>
+				<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.21.0</version>
+				<configuration>
+				    <argLine>${surefireArgLine}</argLine>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
