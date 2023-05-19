@@ -28,12 +28,6 @@ node{
     stage('Maven Build'){
         sh "mvn clean package"        
     }
-
-    stage('SonarQube Scan'){
-	withCredentials([string(credentialsId: 'SonarToken', variable: 'SonarToken')]) {
-		sh "mvn sonar:sonar -Dsonar.login=${SonarToken}"
-	}
-    }
 	
     stage('Docker Image Build'){
         echo 'Creating Docker image'
